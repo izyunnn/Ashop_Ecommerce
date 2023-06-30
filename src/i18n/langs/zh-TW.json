@@ -1,0 +1,54 @@
+{
+    "tabList": {
+      "woman": "女裝",
+      "male": "男裝",
+      "child": "童裝",
+      "baby": "嬰兒"
+    },
+    "lang": "繁體中文",
+    "search": "搜尋",
+    "womanMenu": {
+      "new": "新品上市",
+      "cloth": "服飾",
+      "shoes": "鞋",
+      "accessories": "飾品配件",
+      "bag": "包",
+      "cosmetic": "美容保養",
+      "sport": "運動"
+    },
+    "manMenu": {
+      "new": "新品上市",
+      "cloth": "服飾",
+      "shoes": "鞋",
+      "accessories": "飾品配件",
+      "bag": "包",
+      "sport": "運動"
+    },
+    "childMenu": {
+      "new": "新品上市",
+      "cloth": "服飾",
+      "shoes": "鞋",
+      "accessories": "飾品配件",
+      "sport": "運動"
+    },
+    "babyMenu": {
+      "new": "新品上市",
+      "cloth": "服飾",
+      "shoes": "鞋",
+      "accessories": "飾品配件"
+    },
+    "shopNow": "立即訂購",
+    "topPicks": "熱門商品",
+    "DealsOfTheDay": "每日特惠",
+    "bag": "包包",
+    "shoes": "鞋",
+    "T-Shirt": "T卹",
+    "jeans": "牛仔褲",
+    "upTo50%": "五折起",
+    "upTo69%": "六九折起",
+    "addCategory": "新增商品",
+    "categoryName": "種類名稱",
+    "description": "商品描述",
+    "productImage": "商品照片",
+    "productPrice": "商品價格"
+  }

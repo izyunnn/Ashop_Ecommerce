@@ -1,0 +1,37 @@
+{
+    "tabList": {
+      "woman": "WOMEN",
+      "male": "MEN",
+      "child": "KIDS",
+      "baby": "BABY"
+    },
+    "lang": "English",
+    "search": "Search",
+    "womanMenu": {
+      "new": "新品上市",
+      "cloth": "服飾",
+      "shoes": "鞋",
+      "accessories": "飾品配件",
+      "bag": "包",
+      "cosmetic": "美容保養",
+      "sport": "運動"
+    },
+    "manMenu": {
+      "new": "新品上市",
+      "cloth": "服飾",
+      "shoes": "鞋",
+      "accessories": "飾品配件",
+      "bag": "包",
+      "cosmetic": "美容保養",
+      "sport": "運動"
+    },
+    "shopNow": "SHOP NOW",
+    "topPicks": "Top Picks",
+    "DealsOfTheDay": "Deals Of The Day",
+    "bag": "Bag",
+    "shoes": "Shoes",
+    "T-Shirt": "T-Shirt",
+    "jeans": "Jeans",
+    "upTo50%": "Upto 50%",
+    "upTo69%": "Upto 69%"
+}

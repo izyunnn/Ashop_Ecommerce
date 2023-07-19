@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10">
+  <div class="">
     <div class="align-items-center justify-content-center text-center relative">
       <Galleria :value="images" :showThumbnails="false" :showItemNavigators="true">
         <template #item="slotProps">

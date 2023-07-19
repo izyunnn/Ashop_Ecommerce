@@ -18,8 +18,8 @@ export const NodeService = {
                     },
                     {
                         key: '1-2',
-                        label: 'Tunics',
-                        data: 'Tunics',
+                        label: 'Jackets',
+                        data: 'jackets',
                     },
                     {
                         key: '1-3',

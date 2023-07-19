@@ -30,10 +30,15 @@
         <font-awesome-icon :icon="['fas', 'cart-shopping']" size="lg" style="color: #ffffff;" />
       </router-link>
     </div>
-    <div class="userBtn cursor-pointer w-2rem ml-1">
+    <div class="userBtn cursor-pointer w-2rem ml-1" @click="personalBar = !personalBar">
       <router-link to="/addCategory">
         <font-awesome-icon :icon="['fass', 'user']" size="lg" style="color: #ffffff;" />
       </router-link>
+    </div>
+    <div class="list" v-if="personalBar">
+      <ul>
+        <li v-for="item in langMenu" :key="item.id" @click="$i18n.locale = item.id,isShow = !isShow" @click.stop>{{item.name}}</li>
+      </ul>
     </div>
     <div class="langBtn cursor-pointer ml-7 flex align-items-center justify-content-center text-center" @click="isShow = !isShow" >
       <font-awesome-icon :icon="['fas', 'earth-americas']" size="lg" style="color: #ffffff;" />

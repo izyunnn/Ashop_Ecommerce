@@ -8,6 +8,8 @@ import Woman from '../views/woman.vue'
 import Baby from '../views/baby.vue'
 import Cart from '../views/cartPage.vue'
 import Product from '../views/product.vue'
+import Register from '../views/register.vue'
+import Login from '../views/login.vue'
 
 const routes = [
   {
@@ -55,6 +57,16 @@ const routes = [
         path: 'addCategory',
         name: 'addCategory',
         component: addCategory
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: Register
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: Login
       }
     ]
   },

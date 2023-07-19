@@ -50,5 +50,8 @@
     "categoryName": "種類名稱",
     "description": "商品描述",
     "productImage": "商品照片",
-    "productPrice": "商品價格"
+    "productPrice": "商品價格",
+    "username": "使用者名稱",
+    "password": "密碼",
+    "login": "登入"
   }

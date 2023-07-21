@@ -56,5 +56,6 @@
     "login": "登入",
     "register": "註冊",
     "email": "電子郵件",
-    "imageVerify": "圖片驗證"
+    "imageVerify": "圖片驗證",
+    "forgotPassword": "忘記密碼"
   }

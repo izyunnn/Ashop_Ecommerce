@@ -1,38 +1,52 @@
 <template>
-    <div class="container">
-        <div class="card">
-            <div class="flex flex align-items-center justify-content-center">
-                <div class="w-full md:w-7 flex flex-column align-items-center justify-content-center gap-3 py-5">
-                    <div class="flex align-items-center gap-2">
-                        <label class="col-3">{{ $t('email') }}</label>
-                        <InputText id="email" type="email" class="col-5" />
-                    </div>
-                    <div class="flex align-items-center gap-2">
-                        <label class="col-3">{{ $t('username') }}</label>
-                        <InputText id="username" type="text" class="col-5" />
-                    </div>
-                    <div class="flex align-items-center gap-2">
-                        <label class="col-3">{{ $t('password') }}</label>
-                        <InputText id="password" type="password" class="col-5" />
-                    </div>
-                    <div class="flex align-items-center gap-2">
-                        <label class="col-3">{{ $t('imageVerify') }}</label>
-                        <InputText id="verify" type="verify" class="col-5" />
-                        <div class="w-2 img-verify">
-                        <canvas ref="verify" :width="width" :height="height" @click="handleDraw"></canvas>
-                        </div>
-                    </div>
-                    <Button icon="pi pi-user" class="w-10rem">{{ $t('register') }}</Button>
-                </div>
+    <div class="px-4 py-8 md:px-6 lg:px-8">
+      <div class="flex flex-wrap align-items-center justify-content-center">
+
+        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+          <div class="text-right mb-5">
+               <Dropdown v-model="selectedLang" :options="languages" optionLabel="name" @change="changeLang"/>
+          </div>
+          <div class="text-center mb-5 align-items-center justify-content-center">
+            <h1 class="registerLogo">ASHOP</h1>
+          </div>
+          <div class="grid formgrid p-fluid">
+            <div class="field col-12 md:col-12">
+              <Dropdown v-model="selectedMode" :options="modes" :optionLabel="transferLangModes" @change="changeModes"/>
             </div>
+          </div>
+          <div class="grid formgrid p-fluid">
+            <div class="field col-12 md:col-12">
+              <label class="block text-900 font-medium mb-2">{{ $t('username') }}</label>
+              <form><InputText v-model="username" name="username" type="username" class="w-full mb-3" autocomplete="off" /></form>
+            </div> 
+            <div class="field col-12 md:col-12">
+              <label class="block text-900 font-medium mb-2">{{ $t('email') }}</label>
+              <InputText v-model="email" name="email" type="text" class="w-full mb-3"/>
+            </div> 
+            <div class="field col-12 md:col-12">
+              <label class="block text-900 font-medium mb-2">{{ $t('password') }}</label>
+              <form><InputText v-model="password" name="password" type="password" class="w-full mb-3" autocomplete="off" /></form>
+            </div>  
+            <div class="field col-12 md:col-7">
+              <label class="block text-900 font-medium mb-2">{{ $t('imageVerify') }}</label>
+              <form><InputText v-model="imageVerify"  name="password" type="password" class="w-full mb-3" autocomplete="off" /></form>
+            </div>
+            <div class="field col-12 md:col-5 mt-3 img-verify">
+              <canvas ref="verify" :width="width" :height="height" @click="handleDraw"></canvas>
+            </div> 
+            <div class="field col-12 md:col-12 text-right">
+                <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" @click="displayModal = true">{{ $t('forgotPassword') }}</a>
+            </div>
+            <Button :label="$t('register')" icon="pi pi-user" class="w-full" @click="login"></Button>
+          </div>
         </div>
+      </div>
     </div>
 </template>
 
 <script>
 import { useI18n } from 'vue-i18n'
 import { ref, reactive, onMounted, toRefs } from 'vue'
-import AuthService from '@/service/auth.service'
 export default {
   name: 'register',
   components: {
@@ -40,27 +54,22 @@ export default {
   setup () {
     const { locale, t } = useI18n({ useScope: 'global' })
     const verify = ref(null)
+    const email = ref('')
+    const username = ref('')
+    const password = ref('')
     const state = reactive({
       pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
       width: 120,
-      height: 40
+      height: 30
     })
-    const registerComponent = () => {
-        const [username, setUsername] = ref("")
-        const [email, setEmail] = ref("")
-        const [password, setPassword] = ref("")
-        const [role, setRole] = ref("")
-    }
     onMounted(() => {
       // 初始化圖片驗證碼
           draw()
     })
-    
     // 點擊圖片重新生成
     const handleDraw = () => {
        draw()
     }
-
     // 隨機數
     const randomNum = (min, max) => {
       return parseInt(Math.random() * (max - min) + min)
@@ -72,7 +81,6 @@ export default {
       const b = randomNum(min, max)
       return `rgb(${r},${g},${b})`
     }
-
     // 繪製圖片
     const draw = () => {
       const ctx = verify.value.getContext('2d')
@@ -103,20 +111,39 @@ export default {
         t,
         verify,
         ...toRefs(state),
-        handleDraw
+        handleDraw,
+        email,
+        username,
+        password
     }
   }
 }
 </script>
 
 <style lang="scss">
-.card {
-    align-items: center;
-    color: #495057;
-    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 20%), 0 1px 3px 0 rgb(0 0 0 / 20%);
-    border-radius: 3px;
-    .img-verify canvas {
-        cursor: pointer;
-    }
+.registerLogo {
+    margin-left: 12rem;
+    width: 6vw;
+    color: #000000;
+    font-size: 4rem;
+    letter-spacing: 0.1rem;
+    animation: text 2s ease-in-out infinite alternate;
+}
+@keyframes text {
+  0%, 30% {
+    text-shadow: 
+    5px 5px 0px #eb452b,
+    10px 10px 0px #efa032,
+    15px 15px 0px #46b59b,
+    20px 20px 0px #017e7f,
+    25px 25px 0px #0d5370,
+    35px 35px 20px #1e1e25,
+    50px 50px 40px #131318;
+    transform: skewX(-25deg) skewY(2deg);
+  }
+  90%, 100% {
+    text-shadow: none;
+    transform: none;
+  }
 }
 </style>

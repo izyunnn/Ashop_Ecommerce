@@ -122,7 +122,6 @@ export default {
         color: #ffffff;
         font-size: 1.5rem;
         letter-spacing: 0.1rem;
-        animation: text 2s ease-in-out infinite alternate;
       }
     }
     ul {
@@ -244,23 +243,6 @@ export default {
         }
       }
     }
-  }
-}
-@keyframes text {
-  0%, 30% {
-    text-shadow: 
-    5px 5px 0px #eb452b,
-    10px 10px 0px #efa032,
-    15px 15px 0px #46b59b,
-    20px 20px 0px #017e7f,
-    25px 25px 0px #0d5370,
-    35px 35px 20px #1e1e25,
-    50px 50px 40px #131318;
-    transform: skewX(-25deg) skewY(2deg);
-  }
-  90%, 100% {
-    text-shadow: none;
-    transform: none;
   }
 }
 </style>  

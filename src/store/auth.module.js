@@ -1,4 +1,4 @@
-import AuthService from '../services/auth.service'
+import AuthService from '../service/auth.service'
 
 const admin = localStorage.getItem('token')
 const initialState = admin
@@ -16,6 +16,7 @@ export const auth = {
           return Promise.resolve(admin)
         },
         error => {
+          console.log(error)
           commit('loginFailure')
           return Promise.reject(error)
         }

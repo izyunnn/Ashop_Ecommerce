@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import i18n from '@/i18n/index.js' // 引入
+import store from "./store"
+import 'sweetalert2/src/sweetalert2.scss'
 
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -29,6 +31,7 @@ import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Avatar from 'primevue/avatar'
 import AvatarGroup from 'primevue/avatargroup'
+import Dropdown from 'primevue/dropdown'
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -37,7 +40,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 library.add(fas, far, fab);
 
-const app = createApp(App)
+const app = createApp(App).use(store)
 
 app.use(router)
 app.use(i18n)
@@ -65,6 +68,7 @@ app.component('TabView', TabView)
 app.component('TabPanel', TabPanel)
 app.component('Avatar', Avatar)
 app.component('AvatarGroup', AvatarGroup)
+app.component('Dropdown', Dropdown)
 
 app.mount('#app')
 

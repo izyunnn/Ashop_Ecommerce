@@ -57,5 +57,9 @@
     "register": "註冊",
     "email": "電子郵件",
     "imageVerify": "圖片驗證",
-    "forgotPassword": "忘記密碼"
+    "forgotPassword": "忘記密碼",
+    "enter_email": "請輸入電子郵件",
+    "enter_verify": "請輸入驗證密碼",
+    "enter_password": "請輸入使用者密碼",
+    "error": "錯誤"
   }

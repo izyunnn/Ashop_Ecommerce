@@ -12,15 +12,15 @@
           <div class="grid formgrid p-fluid">
             <div class="field col-12 md:col-12">
               <label class="block text-900 font-medium mb-2">{{ $t('email') }}</label>
-              <form><InputText v-model="email" name="email" type="username" class="w-full mb-3" autocomplete="off" /></form>
+              <form><InputText v-model="email" name="email" class="w-full mb-3" autocomplete="off" /></form>
             </div> 
             <div class="field col-12 md:col-12">
               <label class="block text-900 font-medium mb-2">{{ $t('password') }}</label>
-              <form><InputText v-model="password" name="password" type="password" class="w-full mb-3" autocomplete="off" /></form>
+              <form><InputText v-model="password" name="password" class="w-full mb-3" autocomplete="off" /></form>
             </div>  
             <div class="field col-12 md:col-7">
               <label class="block text-900 font-medium mb-2">{{ $t('imageVerify') }}</label>
-              <form><InputText v-model="imageVerify"  name="password" type="password" class="w-full mb-3" autocomplete="off" /></form>
+              <form><InputText v-model="imageVerify"  name="password" class="w-full mb-3" autocomplete="off" /></form>
             </div>
             <div class="field col-12 md:col-5 mt-3 img-verify">
               <canvas ref="verify" :width="width" :height="height" @click="handleDraw"></canvas>
@@ -39,6 +39,7 @@
 import { useI18n } from 'vue-i18n'
 import { ref, reactive, onMounted, toRefs } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 export default {
   name: 'login',
@@ -51,8 +52,9 @@ export default {
     const username = ref('')
     const password = ref('')
     const imageVerify = ref('')
-    const isLoading = ref(false);
-    const store = useStore();
+    const isLoading = ref(false)
+    const store = useStore()
+    const router = useRouter()
     const state = reactive({
       pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
       width: 120,
@@ -67,11 +69,11 @@ export default {
         Swal.fire({
           icon: 'error',
           title: 'ERROR',
-          text: t('enter_email'),
+          text: t('enter_email')
         })
         return
       }
-      if (verify.value.length <= 0) {
+      if (imageVerify.value.length <= 0) {
         isLoading.value = false
         Swal.fire({
           icon: 'error',
@@ -95,16 +97,14 @@ export default {
       }).then(() => {
             isLoading.value = false
             router.push('/')
-          },
-          (error) => {
+          }).catch(err =>{
             isLoading.value = false
             Swal.fire({
               icon: 'error',
               title: 'ERROR',
-              text: swapErrorCode(error.response),
-            })
-          }
-        )
+              text: t('帳號或密碼錯誤'),
+          })
+        })
     };
 
 

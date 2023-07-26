@@ -1,37 +1,38 @@
 import axios from 'axios'
-const API_URL = "http://localhost:8080/api"
+const API_URL = 'http://localhost:8080/api';
 
 class AuthService {
-  login(admin) {
-    const form = new FormData();
-    form.append('email', admin.email);
-    form.append('password', admin.password);
-    return axios
-      .post(API_URL + '/user/login', form)
-      .then(response => {
-        if (response.data.result == "ok") {
-          const token = response.data.payload.userInfo.token
-          const permissions = response.data.payload.routerRoleInfo
-          const userInfo = response.data.payload.userInfo
-          localStorage.setItem('token',token)
-          localStorage.setItem('permissions', JSON.stringify(permissions))
-          localStorage.setItem('userInfo', JSON.stringify(userInfo))
-        }
-        return response.data;
+    login(admin) {
+      return axios
+      .post(API_URL + '/user/login', {
+        email: admin.email,
+        password: admin.password
+      })
+      .then(res => {
+        console.log(res.data)
+        console.log(res.data.token)
+            if (res.statusText == 'OK') {
+              const token = res.data.token
+              const user = res.data.user.username
+              localStorage.setItem('token',token)
+              localStorage.setItem('user', JSON.stringify(user))
+            }
+            return response.data;
       })
   }
   logout() {
-    localStorage.removeItem('admin');
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
   }
 
   register(admin) {
     return axios
-      .post(API_URL + '/user/register', form), {
+      .post('http://localhost8080/api/user/register', {
         username: admin.username,
         email: admin.email,
         password: admin.password,
         role: admin.role
-      }
+      })
   }
 }
 

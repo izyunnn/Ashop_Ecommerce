@@ -19,7 +19,7 @@
     </span>
   </div>
   <div class="left">
-    <div class="loginBtn cursor-pointer w-2rem" @click="isShow = !isShow" >
+    <div class="loginBtn cursor-pointer w-2rem" @click=logout() >
       <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
     </div>
     <div class="favBtn cursor-pointer w-2rem ml-1" @click="isShow = !isShow" >
@@ -64,12 +64,15 @@
 import { reactive, watch, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import "vuetify/dist/vuetify.min.css";
-
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 export default {
   name: 'headerPage',
   components: {
   },
   setup () {
+    const store = useStore()
+    const router = useRouter()
     const isShow = ref(false)
     const { locale, t } = useI18n({ useScope: 'global' })
     const tableList = reactive(['woman', 'male', 'child', 'baby'])
@@ -79,6 +82,17 @@ export default {
       { name: 'English', id: 'en-US' },
       { name: '簡體中文', id: 'zh-CN' },
     ])
+
+    const logout = () => {
+      store.dispatch('auth/logout').then(
+          () => {
+            router.push('/login')
+          },
+          (error) => {
+            console.log(error)
+          }
+      )
+    }
 
     // reload page時不會變回預設語言
     watch(locale, (newlocale) => {
@@ -90,7 +104,8 @@ export default {
       t,
       langMenu,
       isShow,
-      menu
+      menu,
+      logout
     }
   }
 }

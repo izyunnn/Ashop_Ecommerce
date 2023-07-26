@@ -4,7 +4,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: "https://virtserver.swaggerhub.com/Ashop/ecommerce/1.0.0",
+  baseURL: "http://localhost:8080",
   timeout: 5000,
 })
 

@@ -16,7 +16,6 @@ export const auth = {
           return Promise.resolve(admin)
         },
         error => {
-          console.log(error)
           commit('loginFailure')
           return Promise.reject(error)
         }

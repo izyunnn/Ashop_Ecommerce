@@ -18,46 +18,35 @@
       <InputText :placeholder="$t('search')" />
     </span>
   </div>
-  <div class="left">
-    <div class="loginBtn cursor-pointer w-2rem" @click=logout() >
+  <div class="left align-items-center justify-content-center text-center flex">
+    <div class="loginBtn cursor-pointer w-2rem ml-2" @click=logout() >
       <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
     </div>
-    <div class="favBtn cursor-pointer w-2rem ml-1" @click="isShow = !isShow" >
+    <div class="favBtn cursor-pointer w-2" @click="isShow = !isShow" >
       <font-awesome-icon :icon="['far', 'heart']" size="lg" style="color: #ffffff;" />
     </div>
-    <div class="cartBtn cursor-pointer w-2rem ml-1">
-      <router-link to="/cart" class="cart">
-        <font-awesome-icon :icon="['fas', 'cart-shopping']" size="lg" style="color: #ffffff;" />
-      </router-link>
-    </div>
-    <div class="userBtn cursor-pointer w-2rem ml-1" @click="personalBar = !personalBar">
-      <router-link to="/addCategory">
+    <div class="userBtn cursor-pointer w-2 flex" @click="isPersonalBar = !isPersonalBar">
+      <!-- <router-link to="/addCategory"> -->
         <font-awesome-icon :icon="['fass', 'user']" size="lg" style="color: #ffffff;" />
-      </router-link>
+        <p class="text-l text-white cursor-pointer white-space-nowrap ml-1">{{ getCurrentUser }}</p>
+      <!-- </router-link> -->
     </div>
-    <div class="list" v-if="personalBar">
+    <div class="personalList" v-if="isPersonalBar">
       <ul>
-        <li v-for="item in langMenu" :key="item.id" @click="$i18n.locale = item.id,isShow = !isShow" @click.stop>{{item.name}}</li>
+        <li v-for="item in personalBar" :key="item.id" @click="$router.push(item.id), isPersonalBar = !isPersonalBar">{{ item.name }}</li>
       </ul>
     </div>
-    <div class="langBtn cursor-pointer ml-7 flex align-items-center justify-content-center text-center" @click="isShow = !isShow" >
+    <div class="langBtn cursor-pointer w-3 m-2 ml-6 flex" @click="isShow = !isShow" >
       <font-awesome-icon :icon="['fas', 'earth-americas']" size="lg" style="color: #ffffff;" />
-      <p>{{ $t('lang') }}</p>
+      <p class="white-space-nowrap text-white ml-1">{{ $t('lang') }}</p>
     </div>
-    <div class="list" v-if="isShow">
+    <div class="langList" v-if="isShow">
       <ul>
         <li v-for="item in langMenu" :key="item.id" @click="$i18n.locale = item.id,isShow = !isShow" @click.stop>{{item.name}}</li>
       </ul>
     </div>
   </div>
 </div>
-  <!-- <div class="Navbar2">
-    <ul>
-      <li v-for="item in menu" :key="item">
-        <router-link class="router-link" to="/">{{ $t(`womanMenu.${item}`) }}</router-link>
-      </li>
-    </ul>
-  </div> -->
 </template>
   
 <script>
@@ -74,6 +63,7 @@ export default {
     const store = useStore()
     const router = useRouter()
     const isShow = ref(false)
+    const isPersonalBar = ref(false)
     const { locale, t } = useI18n({ useScope: 'global' })
     const tableList = reactive(['woman', 'male', 'child', 'baby'])
     const menu = reactive(["new", "cloth", "shoes", "accessories", "bag", "cosmetic", "sport"])
@@ -82,11 +72,17 @@ export default {
       { name: 'English', id: 'en-US' },
       { name: '簡體中文', id: 'zh-CN' },
     ])
+    const selectPersonal = ref('')
+    const personalBar = reactive([
+      {name: '登陸', id: 'login'},
+      {name: '我的購物車', id:'cart'}
+    ])
+    const getCurrentUser = JSON.parse(localStorage.getItem('user'))
 
     const logout = () => {
       store.dispatch('auth/logout').then(
           () => {
-            router.push('/login')
+            router.push('/')
           },
           (error) => {
             console.log(error)
@@ -105,7 +101,11 @@ export default {
       langMenu,
       isShow,
       menu,
-      logout
+      logout,
+      selectPersonal,
+      personalBar,
+      isPersonalBar,
+      getCurrentUser
     }
   }
 }
@@ -175,25 +175,10 @@ export default {
     }
   }
   .left {
-    display: flex;
-    align-items: center;
-    text-align: center;
     box-sizing: border-box;
-    margin-left: 2rem;
-    .langBtn {
-        width: 100px;
-        height: 40px;
-        cursor: pointer;
-        p {
-          color: white;
-          font-size: 1em;
-          white-space:nowrap;
-        }
-      }
-      .list {
+      .langList {
         position: absolute;
         text-align: center;
-        margin-left: 5px;
         top: 50px;
         width: 132px;
         height: auto;
@@ -224,40 +209,38 @@ export default {
           }
         }
       }
-    }
-  }
-.Navbar2 {
-  display: flex;
-  position: absolute;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 5vh;
-  top: 9vh;
-  background-color: #f5f5f5;
-  box-shadow:3px 3px 5px 6px #cccccc;
-  box-sizing: border-box;
-  ul {
-    display: flex;
-    justify-content: normal;
-    align-items: normal;
-    white-space: nowrap;
-    width: 20vw;
-    margin-left: 9rem;
-    li {
-      display: inline;
-      justify-content: normal;
-      align-items: normal;
-      position: relative;
-      margin:0 25px;
-      a {
-        text-decoration: none;
-        color: #000000;
-        &.router-link-exact-active {
-          color: #ffd699;
+        .personalList {
+        position: absolute;
+        text-align: center;
+        top: 50px;
+        width: 132px;
+        height: auto;
+        z-index: 10;
+        transition: height 1 s ease 0s;
+        overflow: hidden;
+        border-radius: 5%;
+        ul {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          background: $black;
+          transition: margin-top 0.5;
+          li {
+            padding: 10px 0;
+            width: 100%;
+            height: 36px;
+            color: $white;
+            white-space: nowrap;
+            overflow: hidden;
+            cursor: pointer;
+          }
+          li.active {
+            color: $orange;
+          }
         }
       }
     }
   }
-}
 </style>  

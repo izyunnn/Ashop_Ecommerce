@@ -14,20 +14,23 @@ class AuthService {
             if (res.statusText == 'OK') {
               const token = res.data.token
               const user = res.data.user.username
+              const role = res.data.user.role
               localStorage.setItem('token',token)
               localStorage.setItem('user', JSON.stringify(user))
+              localStorage.setItem('role', JSON.stringify(role))
             }
-            return response.data;
+            return res.data;
       })
   }
   logout() {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
+    localStorage.removeItem("role")
   }
 
   register(admin) {
     return axios
-      .post('http://localhost8080/api/user/register', {
+      .post(API_URL + '/user/register', {
         username: admin.username,
         email: admin.email,
         password: admin.password,

@@ -4,7 +4,7 @@
 
         <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
           <div class="text-right mb-6 selectLang">
-               <Dropdown v-model="selectedLang" :options="languages" optionLabel="name" @change="changeLang"/>
+            <Dropdown v-model="selectedLang" :options="languages" optionLabel="name" @change="changeLang"/>
           </div>
           <div class="text-center mb-6">
             <h1 class="registerLogo">ASHOP</h1>
@@ -98,6 +98,7 @@ export default {
             isLoading.value = false
             router.push('/')
           }).catch(err =>{
+            console.log(err)
             isLoading.value = false
             Swal.fire({
               icon: 'error',

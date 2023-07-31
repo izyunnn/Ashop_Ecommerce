@@ -54,7 +54,7 @@
   
 <script>
 import { PhotoService } from '@/service/PhotoService'
-import { onMounted, reactive, ref, } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 export default {
   name: 'homePage',

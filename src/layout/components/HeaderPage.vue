@@ -26,10 +26,8 @@
       <font-awesome-icon :icon="['far', 'heart']" size="lg" style="color: #ffffff;" />
     </div>
     <div class="userBtn cursor-pointer w-2 flex" @click="isPersonalBar = !isPersonalBar">
-      <!-- <router-link to="/addCategory"> -->
-        <font-awesome-icon :icon="['fass', 'user']" size="lg" style="color: #ffffff;" />
-        <p class="text-l text-white cursor-pointer white-space-nowrap ml-1">{{ getCurrentUser }}</p>
-      <!-- </router-link> -->
+      <font-awesome-icon :icon="['fass', 'user']" size="lg" style="color: #ffffff;" />
+      <p class="text-l text-white cursor-pointer white-space-nowrap ml-1">{{ getCurrentUser }}</p>
     </div>
     <div class="personalList" v-if="isPersonalBar">
       <ul>
@@ -75,7 +73,9 @@ export default {
     const selectPersonal = ref('')
     const personalBar = reactive([
       {name: '登陸', id: 'login'},
-      {name: '我的購物車', id:'cart'}
+      {name: '我的購物車', id:'cart'},
+      {name: '我的收藏', id: 'favorite'},
+      {name: '個人資料', id:'profile'}
     ])
     const getCurrentUser = JSON.parse(localStorage.getItem('user'))
 
@@ -83,6 +83,7 @@ export default {
       store.dispatch('auth/logout').then(
           () => {
             router.push('/')
+            router.go()
           },
           (error) => {
             console.log(error)
@@ -180,26 +181,29 @@ export default {
         position: absolute;
         text-align: center;
         top: 50px;
-        width: 132px;
+        width: 8vw;
         height: auto;
         margin-left: 14rem;
         z-index: 10;
-        transition: height 1 s ease 0s;
         overflow: hidden;
         border-radius: 5%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0, 0.2);
+        .langList:hover {
+          transition: height 1s ease 0s;
+        }
         ul {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           height: 100%;
-          background: $black;
+          background: #ffffff;
           transition: margin-top 0.5;
           li {
             padding: 10px 0;
             width: 100%;
             height: 36px;
-            color: $white;
+            color: #000000;
             white-space: nowrap;
             overflow: hidden;
             cursor: pointer;
@@ -213,25 +217,26 @@ export default {
         position: absolute;
         text-align: center;
         top: 50px;
-        width: 132px;
+        width: 8vw;
         height: auto;
         z-index: 10;
         transition: height 1 s ease 0s;
         overflow: hidden;
         border-radius: 5%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0, 0.2);
         ul {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           height: 100%;
-          background: $black;
+          background: #ffffff;
           transition: margin-top 0.5;
           li {
             padding: 10px 0;
             width: 100%;
             height: 36px;
-            color: $white;
+            color: #000000;
             white-space: nowrap;
             overflow: hidden;
             cursor: pointer;

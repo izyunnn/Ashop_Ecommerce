@@ -19,13 +19,10 @@
     </span>
   </div>
   <div class="left align-items-center justify-content-center text-center flex">
-    <div class="loginBtn cursor-pointer w-2rem ml-2" @click=logout() >
+    <div class="loginBtn cursor-pointer w-2rem ml-2" v-if="isLogin()" @click=logout() >
       <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
     </div>
-    <div class="favBtn cursor-pointer w-2" @click="isShow = !isShow" >
-      <font-awesome-icon :icon="['far', 'heart']" size="lg" style="color: #ffffff;" />
-    </div>
-    <div class="userBtn cursor-pointer w-2 flex" @click="isPersonalBar = !isPersonalBar">
+    <div class="userBtn cursor-pointer w-2 flex ml-6" @click="isPersonalBar = !isPersonalBar">
       <font-awesome-icon :icon="['fass', 'user']" size="lg" style="color: #ffffff;" />
       <p class="text-l text-white cursor-pointer white-space-nowrap ml-1">{{ getCurrentUser }}</p>
     </div>
@@ -53,6 +50,8 @@ import { useI18n } from 'vue-i18n'
 import "vuetify/dist/vuetify.min.css";
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 export default {
   name: 'headerPage',
   components: {
@@ -81,14 +80,26 @@ export default {
 
     const logout = () => {
       store.dispatch('auth/logout').then(
-          () => {
+        () => {
+          Swal.fire({
+          icon: 'success',
+          title: t('login_success'),
+        })
             router.push('/')
-            router.go()
+            router.go(0)
           },
           (error) => {
             console.log(error)
           }
       )
+    }
+
+    const isLogin = () =>{
+      console.log(localStorage.getItem('user'))
+      if(localStorage.getItem('user') !== null ) {
+        return true
+      }
+      return false
     }
 
     // reload page時不會變回預設語言
@@ -106,7 +117,8 @@ export default {
       selectPersonal,
       personalBar,
       isPersonalBar,
-      getCurrentUser
+      getCurrentUser,
+      isLogin
     }
   }
 }
@@ -183,7 +195,7 @@ export default {
         top: 50px;
         width: 8vw;
         height: auto;
-        margin-left: 14rem;
+        margin-left: 10rem;
         z-index: 10;
         overflow: hidden;
         border-radius: 5%;
@@ -208,9 +220,6 @@ export default {
             overflow: hidden;
             cursor: pointer;
           }
-          li.active {
-            color: $orange;
-          }
         }
       }
         .personalList {
@@ -219,6 +228,7 @@ export default {
         top: 50px;
         width: 8vw;
         height: auto;
+        margin-left: -7.5rem;
         z-index: 10;
         transition: height 1 s ease 0s;
         overflow: hidden;
@@ -240,9 +250,6 @@ export default {
             white-space: nowrap;
             overflow: hidden;
             cursor: pointer;
-          }
-          li.active {
-            color: $orange;
           }
         }
       }

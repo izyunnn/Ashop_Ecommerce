@@ -61,5 +61,6 @@
     "enter_email": "請輸入電子郵件",
     "enter_verify": "請輸入驗證密碼",
     "enter_password": "請輸入使用者密碼",
-    "error": "錯誤"
+    "error": "錯誤",
+    "login_success": "成功登出"
   }

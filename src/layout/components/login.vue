@@ -34,7 +34,7 @@
 
 <script>
 import { useI18n } from 'vue-i18n'
-import { ref, reactive, onMounted, toRefs, watch } from 'vue'
+import { ref, reactive, onMounted, toRefs } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
@@ -116,8 +116,7 @@ const login = () => {
         isLoading.value = false
         Swal.fire({
           icon: 'error',
-          title: 'ERROR',
-          text: t('enter_email')
+          title: t('enter_email')
         })
         return
       }
@@ -125,8 +124,7 @@ const login = () => {
         isLoading.value = false
         Swal.fire({
           icon: 'error',
-          title: 'ERROR',
-          text:  t('enter_password'),
+          title:  t('enter_password'),
         })
         return
       }
@@ -134,8 +132,7 @@ const login = () => {
         isLoading.value = false
         Swal.fire({
           icon: 'error',
-          title: 'ERROR',
-          text: t('enter_verify'),
+          title: t('enter_verify'),
         })
         return
       }
@@ -150,8 +147,7 @@ const login = () => {
             isLoading.value = false
             Swal.fire({
               icon: 'error',
-              title: 'ERROR',
-              text: t('帳號或密碼錯誤'),
+              title: t('帳號或密碼錯誤'),
           })
         })
     };

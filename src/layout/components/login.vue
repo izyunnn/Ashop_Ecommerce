@@ -53,7 +53,7 @@ export default {
     const store = useStore()
     const router = useRouter()
     const state = reactive({
-      pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
+      pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890',
       width: 120,
       height: 30,
       imageCode: ''

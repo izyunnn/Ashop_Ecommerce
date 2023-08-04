@@ -19,23 +19,23 @@
     </span>
   </div>
   <div class="left align-items-center justify-content-center text-center flex">
-    <div class="loginBtn cursor-pointer w-2rem ml-2" v-if="isLogin()" @click=logout() >
-      <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
-    </div>
     <div class="userBtn cursor-pointer w-2 flex ml-6" @click="isPersonalBar = !isPersonalBar">
       <font-awesome-icon :icon="['fass', 'user']" size="lg" style="color: #ffffff;" />
       <p class="text-l text-white cursor-pointer white-space-nowrap ml-1">{{ getCurrentUser }}</p>
     </div>
-    <div class="personalList" v-if="isPersonalBar">
+    <div class="personalList" :class="{on: isPersonalBar == true}">
       <ul>
         <li v-for="item in personalBar" :key="item.id" @click="$router.push(item.id), isPersonalBar = !isPersonalBar">{{ item.name }}</li>
       </ul>
+    </div>
+    <div class="loginBtn cursor-pointer w-2rem ml-6" v-if="isLogin()" @click=logout() >
+      <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
     </div>
     <div class="langBtn cursor-pointer w-3 m-2 ml-6 flex" @click="isShow = !isShow" >
       <font-awesome-icon :icon="['fas', 'earth-americas']" size="lg" style="color: #ffffff;" />
       <p class="white-space-nowrap text-white ml-1">{{ $t('lang') }}</p>
     </div>
-    <div class="langList" v-if="isShow">
+    <div class="langList" :class="{on: isShow == true}">
       <ul>
         <li v-for="item in langMenu" :key="item.id" @click="$i18n.locale = item.id,isShow = !isShow" @click.stop>{{item.name}}</li>
       </ul>
@@ -192,11 +192,11 @@ export default {
       .langList {
         position: absolute;
         text-align: center;
-        top: 50px;
+        top: 7vh;
         width: 8vw;
-        height: auto;
+        height: 0;
         margin-left: 10rem;
-        z-index: 10;
+        transition: height 1s ease 0s;
         overflow: hidden;
         border-radius: 5%;
         box-shadow: 0 4px 8px 0 rgba(0,0,0, 0.2);
@@ -222,15 +222,14 @@ export default {
           }
         }
       }
-        .personalList {
+      .personalList {
         position: absolute;
         text-align: center;
-        top: 50px;
+        top: 7vh;
         width: 8vw;
-        height: auto;
-        margin-left: -7.5rem;
-        z-index: 10;
-        transition: height 1 s ease 0s;
+        height: 0;
+        margin-left: -8.5rem;
+        transition: height 1s ease 0s;
         overflow: hidden;
         border-radius: 5%;
         box-shadow: 0 4px 8px 0 rgba(0,0,0, 0.2);
@@ -253,6 +252,9 @@ export default {
           }
         }
       }
+      .on {
+          height: 18vh;
+        }
     }
   }
 </style>  

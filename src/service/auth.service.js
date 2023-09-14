@@ -9,8 +9,6 @@ class AuthService {
         password: admin.password
       })
       .then(res => {
-        console.log(res.data)
-        console.log(res.data.token)
             if (res.statusText == 'OK') {
               const token = res.data.token
               const user = res.data.user.username

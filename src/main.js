@@ -32,6 +32,7 @@ import TabPanel from 'primevue/tabpanel'
 import Avatar from 'primevue/avatar'
 import AvatarGroup from 'primevue/avatargroup'
 import Dropdown from 'primevue/dropdown'
+import vue3GoogleLogin from 'vue3-google-login'
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -45,6 +46,9 @@ const app = createApp(App).use(store)
 app.use(router)
 app.use(i18n)
 app.use(PrimeVue, { ripple: true })
+app.use(vue3GoogleLogin, {
+  clientId: '949382081669-a484cmlh5fgr92v2s0o056575sktn0on.apps.googleusercontent.com'
+})
 
 app.component('InputText', InputText);
 app.component('DataTable', DataTable)

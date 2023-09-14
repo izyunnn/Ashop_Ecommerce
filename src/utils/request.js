@@ -2,6 +2,8 @@ import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
+axios.defaults.withCredentials = true;
+
 // create an axios instance
 const service = axios.create({
   baseURL: "http://localhost:8080",

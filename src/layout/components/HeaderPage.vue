@@ -25,11 +25,21 @@
     </div>
     <div class="personalList" :class="{on: isPersonalBar == true}">
       <ul>
-        <li v-for="item in personalBar" :key="item.id" @click="$router.push(item.id), isPersonalBar = !isPersonalBar">{{ item.name }}</li>
+        <li v-for="item in logoutPersonalBar" :key="item.id" @click="$router.push(item.id), isPersonalBar = !isPersonalBar">{{ item.name }}</li>
       </ul>
     </div>
-    <div class="loginBtn cursor-pointer w-2rem ml-6" v-if="isLogin()" @click=logout() >
-      <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
+    <div class="personalList" :class="{on: isPersonalBar == true}" v-if="isAdmin()">
+      <ul>
+        <li v-for="item in customerPersonalBar" :key="item.id" @click="$router.push(item.id), isPersonalBar = !isPersonalBar">{{ item.name }}</li>
+      </ul>
+    </div>
+    <div class="loginBtn cursor-pointer w-2rem ml-6" v-if="! isLogin()">
+      <router-link to="/login">
+        <font-awesome-icon :icon="['fas', 'right-to-bracket']" size="lg" style="color: #ffffff;" />
+      </router-link>
+    </div>
+    <div class="logoutBtn cursor-pointer w-2rem ml-6" v-if="isLogin()" @click=logout() >
+      <font-awesome-icon :icon="['fas', 'right-from-bracket']" size="lg" style="color: #ffffff;" />
     </div>
     <div class="langBtn cursor-pointer w-3 m-2 ml-6 flex" @click="isShow = !isShow" >
       <font-awesome-icon :icon="['fas', 'earth-americas']" size="lg" style="color: #ffffff;" />
@@ -70,13 +80,19 @@ export default {
       { name: '簡體中文', id: 'zh-CN' },
     ])
     const selectPersonal = ref('')
-    const personalBar = reactive([
-      {name: '登陸', id: 'login'},
+    const logoutPersonalBar = reactive([
       {name: '我的購物車', id:'cart'},
       {name: '我的收藏', id: 'favorite'},
       {name: '個人資料', id:'profile'}
     ])
+    const customerPersonalBar = reactive([
+      {name: '我的購物車', id:'cart'},
+      {name: '我的收藏', id: 'favorite'},
+      {name: '個人資料', id:'profile'},
+      {name: '上傳商品', id:'addCategory'}
+    ])
     const getCurrentUser = JSON.parse(localStorage.getItem('user'))
+    const getCurrentRole = JSON.parse(localStorage.getItem('role'))
 
     const logout = () => {
       store.dispatch('auth/logout').then(
@@ -93,10 +109,14 @@ export default {
           }
       )
     }
-
     const isLogin = () =>{
-      console.log(localStorage.getItem('user'))
-      if(localStorage.getItem('user') !== null ) {
+      if(localStorage.getItem('user') !== null){
+        return true
+      }
+      return false
+    }
+    const isAdmin = () =>{
+      if(localStorage.getItem('user') !== null && 'role' === 'admin' ) {
         return true
       }
       return false
@@ -115,10 +135,12 @@ export default {
       menu,
       logout,
       selectPersonal,
-      personalBar,
+      customerPersonalBar,
       isPersonalBar,
       getCurrentUser,
-      isLogin
+      isAdmin,
+      isLogin,
+      logoutPersonalBar
     }
   }
 }

@@ -1,35 +1,51 @@
 <template>
-    <div class="px-4 py-8 md:px-6 lg:px-8">
-      <div class="flex flex-wrap align-items-center justify-content-center">
-
-        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-          <div class="text-center mb-6">
-            <h1 class="registerLogo">ASHOP</h1>
+  <div class="header">
+  <div class="right">
+    <div class="logo">
+      <router-link to="/" class="home_link">
+        <h1 class="logo">ASHOP</h1>
+      </router-link>
+    </div>
+  </div>
+  </div>
+  <div class="px-4 py-8 md:px-6 lg:px-8">
+    <div class="flex flex-wrap align-items-center justify-content-center">
+      <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+        <div class="text-center mb-6">
+          <h1 class="registerLogo">ASHOP</h1>
+        </div>
+        <div class="grid form grid p-fluid">
+          <div class="field col-12 md:col-12">
+            <label class="block text-900 font-medium mb-2">{{ $t('email') }}</label>
+            <form><InputText v-model="email" name="email" class="w-full mb-3" autocomplete="off" /></form>
+          </div> 
+          <div class="field col-12 md:col-12">
+            <label class="block text-900 font-medium mb-2">{{ $t('password') }}</label>
+            <form><InputText v-model="password" name="password" class="w-full mb-3" autocomplete="off" /></form>
+          </div>  
+          <div class="field col-12 md:col-7">
+            <label class="block text-900 font-medium mb-2">{{ $t('imageVerify') }}</label>
+            <form><InputText v-model="imageVerify"  name="password" class="w-full mb-3" autocomplete="off" /></form>
           </div>
-          <div class="grid formgrid p-fluid">
-            <div class="field col-12 md:col-12">
-              <label class="block text-900 font-medium mb-2">{{ $t('email') }}</label>
-              <form><InputText v-model="email" name="email" class="w-full mb-3" autocomplete="off" /></form>
-            </div> 
-            <div class="field col-12 md:col-12">
-              <label class="block text-900 font-medium mb-2">{{ $t('password') }}</label>
-              <form><InputText v-model="password" name="password" class="w-full mb-3" autocomplete="off" /></form>
-            </div>  
-            <div class="field col-12 md:col-7">
-              <label class="block text-900 font-medium mb-2">{{ $t('imageVerify') }}</label>
-              <form><InputText v-model="imageVerify"  name="password" class="w-full mb-3" autocomplete="off" /></form>
-            </div>
-            <div class="field col-12 md:col-5 mt-3 img-verify">
-              <canvas ref="verify" :width="width" :height="height" @click="handleDraw"></canvas>
-            </div> 
-            <div class="field col-12 md:col-12 text-right">
-                <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" @click="displayModal = true">{{ $t('forgotPassword') }}</a>
-            </div>
-            <Button :label="$t('register')" icon="pi pi-user" class="w-full" @click.prevent="login"></Button>
+          <div class="field col-12 md:col-5 mt-3 img-verify">
+            <canvas ref="verify" :width="width" :height="height" @click="handleDraw"></canvas>
+          </div> 
+          <div class="field col-12 md:col-12 text-right">
+              <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" @click="displayModal = true">{{ $t('forgotPassword') }}</a>
+          </div>
+          <Button :label="$t('login')" icon="pi pi-user" class="mt-3" @click.prevent="login"></Button>
+          <div>
+          <Divider align="center" type="solid">
+            <p class="divider">第三方登入</p>
+          </Divider>
+          </div>
+          <div class="center">
+            <GoogleLogin :callback="callback"/>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -176,6 +192,33 @@ const login = () => {
 </script>
 
 <style lang="scss">
+@import '~@/assets/scss/color.scss';
+.header {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 9vh;
+  background-color: $black-80;
+  z-index: 10;
+  .right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 2;
+    a {
+      text-decoration: none;
+      .logo {
+        margin-left: 2rem;
+        width: 6vw;
+        color: #ffffff;
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+      }
+    }
+  }
+}
 .selectLang {
     width: 8.5vw;
     float: right;
@@ -185,6 +228,11 @@ const login = () => {
     font-size: 4rem;
     letter-spacing: 0.1rem;
     animation: text 2s ease-in-out infinite alternate;
+}
+.p-divider-content {
+  width: auto;
+  height: 2vh;
+  font-weight: 350;  
 }
 @keyframes text {
   0%, 30% {

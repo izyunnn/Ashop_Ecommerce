@@ -33,5 +33,22 @@
     "T-Shirt": "T-Shirt",
     "jeans": "Jeans",
     "upTo50%": "Upto 50%",
-    "upTo69%": "Upto 69%"
+    "upTo69%": "Upto 69%",
+    "addCategory": "新增商品",
+    "categoryName": "種類名稱",
+    "description": "商品描述",
+    "productImage": "商品照片",
+    "productPrice": "商品價格",
+    "username": "使用者名稱",
+    "password": "密碼",
+    "login": "登入",
+    "register": "註冊",
+    "email": "Email",
+    "imageVerify": "Verify",
+    "forgotPassword": "Forgot Password",
+    "enter_email": "請輸入電子郵件",
+    "enter_verify": "請輸入驗證密碼",
+    "enter_password": "請輸入使用者密碼",
+    "error": "錯誤",
+    "login_success": "成功登出"
 }

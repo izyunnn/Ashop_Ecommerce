@@ -8,7 +8,7 @@ import Woman from '../views/woman.vue'
 import Baby from '../views/baby.vue'
 import Cart from '../views/personalPage/cartPage.vue'
 import Product from '../views/product.vue'
-import Register from '../views/personalPage/register.vue'
+import Register from '../layout/components/register.vue'
 import Login from '../layout/components/login.vue'
 
 const routes = [

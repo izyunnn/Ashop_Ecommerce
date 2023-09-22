@@ -2,7 +2,7 @@
   <div class="header">
   <div class="right">
     <div class="logo">
-      <router-link to="/" class="home_link">
+      <router-link to="/">
         <h1 class="logo">ASHOP</h1>
       </router-link>
     </div>
@@ -21,7 +21,7 @@
           </div> 
           <div class="field col-12 md:col-12">
             <label class="block text-900 font-medium mb-2">{{ $t('password') }}</label>
-            <form><InputText v-model="password" name="password" class="w-full mb-3" autocomplete="off" /></form>
+            <form><InputText v-model="password" name="password" type="password" class="w-full mb-3" autocomplete="off" /></form>
           </div>  
           <div class="field col-12 md:col-7">
             <label class="block text-900 font-medium mb-2">{{ $t('imageVerify') }}</label>
@@ -31,16 +31,19 @@
             <canvas ref="verify" :width="width" :height="height" @click="handleDraw"></canvas>
           </div> 
           <div class="field col-12 md:col-12 text-right">
+            <router-link to="/register" class="no-underline">
+              <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">{{ $t('register') }}</a>
+            </router-link>
               <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer" @click="displayModal = true">{{ $t('forgotPassword') }}</a>
-          </div>
-          <Button :label="$t('login')" icon="pi pi-user" class="mt-3" @click.prevent="login"></Button>
+            </div>
+          <Button :label="$t('login')" icon="pi pi-user" class="" @click.prevent="login"></Button>
           <div>
           <Divider align="center" type="solid">
             <p class="divider">第三方登入</p>
           </Divider>
           </div>
           <div class="center">
-            <GoogleLogin :callback="callback"/>
+            <GoogleLogin :callback="callback" class="center"/>
           </div>
         </div>
       </div>
@@ -233,6 +236,9 @@ const login = () => {
   width: auto;
   height: 2vh;
   font-weight: 350;  
+}
+.p-button-icon {
+  width: 1vw;
 }
 @keyframes text {
   0%, 30% {

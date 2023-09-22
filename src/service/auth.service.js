@@ -34,6 +34,9 @@ class AuthService {
         password: admin.password,
         role: admin.role
       })
+      .then(res =>{
+        return res.data
+      })
   }
 }
 

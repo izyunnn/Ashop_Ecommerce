@@ -1,3 +1,4 @@
+import { resolveDirective } from 'vue'
 import AuthService from '../service/auth.service'
 
 const admin = localStorage.getItem('token')
@@ -25,6 +26,18 @@ export const auth = {
       AuthService.logout()
       commit('logout')
     },
+   register({ commit }, admin) {
+    return AuthService.login(admin).then(
+      admin => {
+        commit('registerSuccess', admin)
+        return Promise.resolve(admin)
+      },
+      error => {
+        commit('registerFailure')
+        return Promise.reject(error)
+      }
+    )
+    }
   },
   mutations: {
     loginSuccess(state, admin) {
@@ -34,6 +47,14 @@ export const auth = {
     loginFailure(state) {
       state.status.loggedIn = false
       state.admin = null
+    },
+    registerSuccess(state) {
+      state.status.loggedIn = false
+      state.admin = null
+    },
+    registerFailure(state, admin) {
+      state.status.loggedIn = true
+      state.admin = admin
     },
     logout(state) {
       state.status.loggedIn = false
